@@ -5,51 +5,48 @@ import java.util.Arrays;
  */
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
-    private int lenght = 0;
+    private int size;
 
     void clear() {
-        for (int i = 0; i <= lenght; i++) {
+        for (int i = 0; i < size; i++) {
             storage[i] = null;
         }
-        lenght = 0;
+        size = 0;
     }
 
     void save(Resume r) {
-        storage[lenght++] = r;
+        storage[size++] = r;
     }
 
     Resume get(String uuid) {
-        int i = getPosition(uuid);
-        if (i >= 0) {
-            return storage[i];
-        }
-        return null;
+        int index = findIndex(uuid);
+        return (index >= 0) ? storage[index] : null;
     }
 
     void delete(String uuid) {
-        int i = getPosition(uuid);
-        for (; i < lenght; i++) {
+        int i = findIndex(uuid);
+        for (; i < size; i++) {
             storage[i] = storage[i + 1];
         }
         if (i > 0) {
-            storage[lenght] = null;
+            storage[size] = null;
+            size--;
         }
-        lenght--;
     }
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        return Arrays.copyOf(storage, lenght);
+        return Arrays.copyOf(storage, size);
     }
 
     int size() {
-        return lenght;
+        return size;
     }
 
-    private int getPosition(String uuid) {
-        for (int i = 0; i < lenght; i++) {
+    private int findIndex(String uuid) {
+        for (int i = 0; i < size; i++) {
             if (storage[i].uuid.equals(uuid)) {
                 return i;
             }
