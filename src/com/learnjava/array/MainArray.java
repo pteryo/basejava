@@ -1,3 +1,5 @@
+package com.learnjava.array;
+import  com.learnjava.resume.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
