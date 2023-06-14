@@ -1,5 +1,6 @@
-package com.learnjava.array;
-import  com.learnjava.resume.*;
+package com.learnjava;
+import  com.learnjava.model.*;
+import  com.learnjava.storage.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

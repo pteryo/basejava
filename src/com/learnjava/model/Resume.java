@@ -1,4 +1,4 @@
-package com.learnjava.resume;
+package com.learnjava.model;
 /**
  * Initial resume class
  */

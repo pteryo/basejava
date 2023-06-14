@@ -1,6 +1,6 @@
-package com.learnjava.array;
+package com.learnjava.storage;
 
-import com.learnjava.resume.Resume;
+import com.learnjava.model.Resume;
 
 import java.util.Arrays;
 
@@ -8,30 +8,30 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    private static final int maxCap = 10000;
-    Resume[] storage = new Resume[maxCap];
+    private static final int STORAGE_LIMIT = 10000;
+    protected final Resume[] storage = new Resume[STORAGE_LIMIT];
     private int size;
 
-    void clear() {
-        for (int i = 0; i < size; i++) {
-            storage[i] = null;
-        }
+    public void clear() {
+        Arrays.fill(storage, null);
         size = 0;
     }
 
-    void save(Resume r) {
-        if (size + 1 > maxCap) {
+    public void save(Resume r) {
+
+        if (size + 1 > STORAGE_LIMIT) {
             System.out.println("ERROR in method \"save\": maximum capacity reached");
-        }
-        int i = findIndex(r.uuid);
-        if (i < 0) {
-            storage[size++] = r;
         } else {
-            System.out.println("ERROR in method \"save\": " + r.uuid + " already exists");
+            int i = findIndex(r.uuid);
+            if (i > 0) {
+                System.out.println("ERROR in method \"save\": " + r.uuid + " already exists");
+            } else {
+                storage[size++] = r;
+            }
         }
     }
 
-    Resume get(String uuid) {
+    public Resume get(String uuid) {
         int i = findIndex(uuid);
         if (i < 0) {
             System.out.println("ERROR in method \"update\": " + uuid + " not found");
@@ -40,38 +40,34 @@ public class ArrayStorage {
         return storage[i];
     }
 
-    void update(Resume r) {
-        int i = findIndex(r.uuid);
+    public void update(Resume resume) {
+        int i = findIndex(resume.uuid);
         if (i < 0) {
-            System.out.println("ERROR in method \"update\": " + r.uuid + " not found");
+            System.out.println("ERROR in method \"update\": " + resume.uuid + " not found");
             return;
         }
-        storage[i] = r;
+        storage[i] = resume;
     }
 
-    void delete(String uuid) {
+    public void delete(String uuid) {
         int i = findIndex(uuid);
         if (i < 0) {
             System.out.println("ERROR in method \"delete\": " + uuid + " not found");
             return;
         }
-        for (; i < size; i++) {
-            storage[i] = storage[i + 1];
-        }
-        if (i > 0) {
-            storage[size] = null;
-            size--;
-        }
+        storage[i] = storage[size];
+        storage[size] = null;
+        size--;
     }
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    Resume[] getAll() {
+    public Resume[] getAll() {
         return Arrays.copyOf(storage, size);
     }
 
-    int size() {
+    public int size() {
         return size;
     }
 

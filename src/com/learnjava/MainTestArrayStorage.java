@@ -1,5 +1,6 @@
-package com.learnjava.array;
-import  com.learnjava.resume.*;
+package com.learnjava;
+import  com.learnjava.storage.ArrayStorage;
+import  com.learnjava.model.*;
 /**
  * Test for your ArrayStorage implementation
  */
