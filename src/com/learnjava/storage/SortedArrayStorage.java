@@ -17,7 +17,6 @@ public class SortedArrayStorage extends AbstractArrayStorage{
         if (shiftLeft > 0) {
             System.arraycopy(storage, index + 1, storage, index, shiftLeft);
         }
-
     }
 
     @Override

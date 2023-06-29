@@ -3,7 +3,7 @@ package com.learnjava.model;
 /**
  * Initial resume class
  */
-public class Resume {
+public class Resume implements Comparable<Resume> {
 
     // Unique identifier
     private String uuid;
@@ -20,4 +20,10 @@ public class Resume {
     public String toString() {
         return uuid;
     }
+
+    @Override
+    public int compareTo(Resume otherResume){
+        return Integer.compare(getUuid().hashCode(), otherResume.getUuid().hashCode());
+    }
+
 }
