@@ -1,11 +1,10 @@
 package com.learnjava.storage;
 
-public class ArrayStorageTest extends AbstractArrayStorageTest {
+public class ArrayStorageTest extends AbstractStorageTest {
 
     public ArrayStorageTest() {
-
-        super.storage = new ArrayStorage();
-        super.emptyStorage = new ArrayStorage();
+        super(new ArrayStorage(), new ArrayStorage());
+        super.overflowApplicable = true;
     }
 
 }

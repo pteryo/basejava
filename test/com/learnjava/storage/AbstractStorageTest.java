@@ -1,5 +1,4 @@
 package com.learnjava.storage;
-
 import com.learnjava.exception.NotExistStorageException;
 import com.learnjava.exception.StorageException;
 import com.learnjava.model.Resume;
@@ -7,10 +6,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
-class AbstractArrayStorageTest {
+public abstract class AbstractStorageTest {
     protected Storage storage;
     protected Storage emptyStorage;
+    protected boolean overflowApplicable;
     private static final String UUID_1 = "uuid1";
     private static final Resume RESUME_1 = new Resume(UUID_1);
 
@@ -25,6 +24,11 @@ class AbstractArrayStorageTest {
 
     private static final String UUID_NOT_EXIST = "NON_EXISTENT_UUID";
     private static final Resume RESUME_5 = new Resume(UUID_NOT_EXIST);
+
+    protected AbstractStorageTest(Storage storage,  Storage emptyStorage) {
+        this.storage = storage;
+        this.emptyStorage = emptyStorage;
+    }
 
 
     @BeforeEach
@@ -82,14 +86,16 @@ class AbstractArrayStorageTest {
     }
 
     @Test
-    public void overflow() {
-        storage.clear();
-        for (int i = 0; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
-            storage.save(new Resume());
+    void overflow() {
+        if (overflowApplicable) {
+            storage.clear();
+            for (int i = 0; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
+                storage.save(new Resume());
+            }
+            Assertions.assertThrows(StorageException.class, () -> {
+                storage.save(new Resume());
+            });
         }
-        Assertions.assertThrows(StorageException.class, () -> {
-            storage.save(new Resume());
-        });
     }
 
     @Test

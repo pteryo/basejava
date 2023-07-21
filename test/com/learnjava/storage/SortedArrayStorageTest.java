@@ -1,10 +1,10 @@
 package com.learnjava.storage;
 
-public class SortedArrayStorageTest extends AbstractArrayStorageTest {
+public class SortedArrayStorageTest extends AbstractStorageTest {
 
     public SortedArrayStorageTest() {
-        super.storage = new SortedArrayStorage();
-        super.emptyStorage = new SortedArrayStorage();
+        super(new SortedArrayStorage(), new SortedArrayStorage());
+        super.overflowApplicable = true;
     }
 
 }
