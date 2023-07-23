@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 public abstract class AbstractStorageTest {
     protected Storage storage;
     protected Storage emptyStorage;
-    protected boolean overflowApplicable;
+    protected boolean overflowApplicable = true;
     private static final String UUID_1 = "uuid1";
     private static final Resume RESUME_1 = new Resume(UUID_1);
 
