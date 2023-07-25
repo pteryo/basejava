@@ -1,29 +1,32 @@
 package com.learnjava.storage;
+
 import com.learnjava.exception.NotExistStorageException;
-import com.learnjava.exception.StorageException;
 import com.learnjava.model.Resume;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 public abstract class AbstractStorageTest {
     protected Storage storage;
     protected Storage emptyStorage;
-    protected boolean overflowApplicable = true;
+
     private static final String UUID_1 = "uuid1";
-    private static final Resume RESUME_1 = new Resume(UUID_1);
+    private static final Resume RESUME_1 = new Resume(UUID_1, "Ivanov");
 
     private static final String UUID_2 = "uuid2";
-    private static final Resume RESUME_2 = new Resume(UUID_2);
+    private static final Resume RESUME_2 = new Resume(UUID_2,"Petrov");
 
     private static final String UUID_3 = "uuid3";
-    private static final Resume RESUME_3 = new Resume(UUID_3);
+    private static final Resume RESUME_3 = new Resume(UUID_3,"Sidorov");
 
     private static final String UUID_4 = "extra_uuid";
-    private static final Resume RESUME_4 = new Resume(UUID_4);
+    private static final Resume RESUME_4 = new Resume(UUID_4,"Kuznetcov");
 
     private static final String UUID_NOT_EXIST = "NON_EXISTENT_UUID";
-    private static final Resume RESUME_5 = new Resume(UUID_NOT_EXIST);
+    private static final Resume RESUME_5 = new Resume(UUID_NOT_EXIST,"Gzhegosh");
 
     protected AbstractStorageTest(Storage storage,  Storage emptyStorage) {
         this.storage = storage;
@@ -59,23 +62,21 @@ public abstract class AbstractStorageTest {
     void clear() {
         storage.clear();
         assertSize(0);
-        Assertions.assertArrayEquals(storage.getAll(), emptyStorage.getAll());
+        Assertions.assertArrayEquals(storage.getAllSorted().toArray(), emptyStorage.getAllSorted().toArray());
     }
 
     @Test
     void update() {
-        Resume newResume = new Resume(UUID_1);
+        Resume newResume = new Resume(UUID_1,"Ivanov");
         storage.update(newResume);
         Assertions.assertSame(newResume, storage.get(UUID_1));
     }
 
     @Test
-    void getAll() {
-        Resume[] array = storage.getAll();
-        Assertions.assertEquals(3, array.length);
-        Assertions.assertEquals(RESUME_1, array[0]);
-        Assertions.assertEquals(RESUME_2, array[1]);
-        Assertions.assertEquals(RESUME_3, array[2]);
+    void getAllSorted() {
+        List<Resume> list = storage.getAllSorted();
+        Assertions.assertEquals(3, list.size());
+        Assertions.assertEquals(list, Arrays.asList(RESUME_1, RESUME_2, RESUME_3));
     }
 
     @Test
@@ -86,30 +87,14 @@ public abstract class AbstractStorageTest {
     }
 
     @Test
-    void overflow() {
-        if (overflowApplicable) {
-            storage.clear();
-            for (int i = 0; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
-                storage.save(new Resume());
-            }
-            Assertions.assertThrows(StorageException.class, () -> {
-                storage.save(new Resume());
-            });
-        }
-    }
-
-    @Test
     void delete() {
         storage.delete(UUID_1);
         assertSize(2);
-        Assertions.assertThrows(NotExistStorageException.class, () -> {
-            storage.get(UUID_1);
-        });
+        Assertions.assertThrows(NotExistStorageException.class, () -> storage.get(UUID_1));
     }
 
     @Test
     void get() {
-
         assertGet(RESUME_1);
         assertGet(RESUME_2);
         assertGet(RESUME_3);
@@ -117,22 +102,16 @@ public abstract class AbstractStorageTest {
 
     @Test
     void getNotExist() {
-        Assertions.assertThrows(NotExistStorageException.class, () -> {
-            storage.get(UUID_NOT_EXIST);
-        });
+        Assertions.assertThrows(NotExistStorageException.class, () -> storage.get(UUID_NOT_EXIST));
     }
 
     @Test
     void deleteNotExist() {
-        Assertions.assertThrows(NotExistStorageException.class, () -> {
-            storage.delete(UUID_NOT_EXIST);
-        });
+        Assertions.assertThrows(NotExistStorageException.class, () -> storage.delete(UUID_NOT_EXIST));
     }
 
     @Test
     public void updateNotExist() {
-        Assertions.assertThrows(NotExistStorageException.class, () -> {
-            storage.update(RESUME_5);
-        });
+        Assertions.assertThrows(NotExistStorageException.class, () -> storage.update(RESUME_5));
     }
 }

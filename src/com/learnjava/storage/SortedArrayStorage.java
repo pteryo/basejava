@@ -1,10 +1,14 @@
 package com.learnjava.storage;
-import  com.learnjava.model.*;
-import  java.util.Arrays;
+
+import com.learnjava.model.Resume;
+
+import java.util.Arrays;
+import java.util.Comparator;
 
 
 public class SortedArrayStorage extends AbstractArrayStorage {
 
+    private static final Comparator<Resume> RESUME_COMPARATOR = Comparator.comparing(Resume::getUuid);
     @Override
     protected void fillDeletedElement(int index) {
         int numMoved = size - index - 1;
@@ -23,7 +27,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected Integer getSearchKey(String uuid) {
-        Resume searchKey = new Resume(uuid);
-        return Arrays.binarySearch(storage, 0, size, searchKey);
+        Resume searchKey = new Resume(uuid, "dummy");
+        return Arrays.binarySearch(storage, 0, size, searchKey, RESUME_COMPARATOR);
     }
 }

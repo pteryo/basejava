@@ -2,9 +2,10 @@ package com.learnjava.storage;
 
 import com.learnjava.model.Resume;
 
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 
 public class MapStorage extends AbstractStorage {
     private final Map<String, Resume> map = new HashMap<>();
@@ -44,13 +45,11 @@ public class MapStorage extends AbstractStorage {
         map.clear();
     }
 
-    @Override
-    public Resume[] getAll() {
-        Resume[] array = map.values().toArray(new Resume[0]);
-        Arrays.sort(array);
-        return array;
-    }
 
+    @Override
+    public List<Resume> doCopyAll() {
+        return new ArrayList<>(map.values());
+    }
     @Override
     public int size() {
         return map.size();
