@@ -16,7 +16,7 @@ public class ResumeTestData {
     }
 
     public static void fillResumeTestData() {
-        resume = new Resume("Grigoriy Kislicyn");
+        resume = new Resume("Grigoriy Kislin");
         resume.addContact(MOBILE, "+7(921) 855-0482 ");
         resume.addContact(SKYPE, "skype:grigory.kislin");
         resume.addContact(MAIL, "gkislin@yandex.ru");
