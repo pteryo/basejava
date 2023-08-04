@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.learnjava.ResumeTestData.fillResumeTestData;
+
 public abstract class AbstractStorageTest {
     protected Storage storage;
     protected Storage emptyStorage;
