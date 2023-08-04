@@ -14,25 +14,24 @@ public abstract class AbstractStorageTest {
     protected Storage emptyStorage;
 
     private static final String UUID_1 = "uuid1";
-    private static final Resume RESUME_1 = new Resume(UUID_1, "Ivanov");
+    private static final Resume RESUME_1 = fillResumeTestData(UUID_1, "Ivanov");
 
     private static final String UUID_2 = "uuid2";
-    private static final Resume RESUME_2 = new Resume(UUID_2,"Petrov");
+    private static final Resume RESUME_2 = fillResumeTestData(UUID_2,"Petrov");
 
     private static final String UUID_3 = "uuid3";
-    private static final Resume RESUME_3 = new Resume(UUID_3,"Sidorov");
+    private static final Resume RESUME_3 = fillResumeTestData(UUID_3,"Sidorov");
 
     private static final String UUID_4 = "extra_uuid";
-    private static final Resume RESUME_4 = new Resume(UUID_4,"Kuznetcov");
+    private static final Resume RESUME_4 = fillResumeTestData(UUID_4,"Kuznetcov");
 
     private static final String UUID_NOT_EXIST = "NON_EXISTENT_UUID";
-    private static final Resume RESUME_5 = new Resume(UUID_NOT_EXIST,"Gzhegosh");
+    private static final Resume RESUME_5 = fillResumeTestData(UUID_NOT_EXIST,"Gzhegosh");
 
     protected AbstractStorageTest(Storage storage,  Storage emptyStorage) {
         this.storage = storage;
         this.emptyStorage = emptyStorage;
     }
-
 
     @BeforeEach
     public void beforeEach() {
