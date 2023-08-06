@@ -1,8 +1,9 @@
 package com.learnjava.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Period {
+public class Period implements Serializable {
     public LocalDate startDate;
     public LocalDate endDate;
 

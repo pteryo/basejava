@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,7 +15,8 @@ import static com.learnjava.ResumeTestData.getFilledResume;
 public abstract class AbstractStorageTest {
     protected Storage storage;
     protected Storage emptyStorage;
-
+    protected static final File STORAGE_DIR = new File("D:\\YandexDisk\\_java_learn\\storage_files\\full");
+    protected static final File STORAGE_DIR_EMPTY = new File("D:\\YandexDisk\\_java_learn\\storage_files\\empty");
     private static final String UUID_1 = "uuid1";
     private static final Resume RESUME_1 = getFilledResume(UUID_1, "Ivanov");
 
@@ -70,7 +72,7 @@ public abstract class AbstractStorageTest {
     void update() {
         Resume newResume = new Resume(UUID_1,"Ivanov");
         storage.update(newResume);
-        Assertions.assertSame(newResume, storage.get(UUID_1));
+        Assertions.assertTrue(newResume.equals(storage.get(UUID_1)));
     }
 
     @Test

@@ -1,8 +1,9 @@
 package com.learnjava.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Organization {
+public class Organization implements Serializable {
     private List<Period> periods;
     private final String Organization;
     private final Link homePage;
