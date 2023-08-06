@@ -26,8 +26,8 @@ public class ResumeTestData {
         System.out.println(EXPERIENCE.getTitle() + " : " + resume.getSection(EXPERIENCE).toString());
     }
 
-    public static Resume fillResumeTestData(String uuid, String fullname) {
-        Resume resumeWData = new Resume(uuid, fullname);
+    public static Resume getFilledResume(String uuid, String fullName) {
+        Resume resumeWData = new Resume(uuid, fullName);
         resumeWData.addContact(MOBILE, "+7(921) 855-0482 ");
         resumeWData.addContact(SKYPE, "skype:grigory.kislin");
         resumeWData.addContact(MAIL, "gkislin@yandex.ru");
@@ -42,7 +42,7 @@ public class ResumeTestData {
     }
 
     public void main(String[] args) {
-        resume = fillResumeTestData(UUID.randomUUID().toString(), "Grigoriy Kislin");
+        resume = getFilledResume(UUID.randomUUID().toString(), "Grigoriy Kislin");
         printResumeTestData();
     }
 }
