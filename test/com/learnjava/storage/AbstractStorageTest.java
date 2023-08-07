@@ -13,26 +13,22 @@ import java.util.List;
 import static com.learnjava.ResumeTestData.getFilledResume;
 
 public abstract class AbstractStorageTest {
-    protected Storage storage;
-    protected Storage emptyStorage;
     protected static final File STORAGE_DIR = new File("D:\\YandexDisk\\_java_learn\\storage_files\\full");
     protected static final File STORAGE_DIR_EMPTY = new File("D:\\YandexDisk\\_java_learn\\storage_files\\empty");
     private static final String UUID_1 = "uuid1";
     private static final Resume RESUME_1 = getFilledResume(UUID_1, "Ivanov");
-
     private static final String UUID_2 = "uuid2";
-    private static final Resume RESUME_2 = getFilledResume(UUID_2,"Petrov");
-
+    private static final Resume RESUME_2 = getFilledResume(UUID_2, "Petrov");
     private static final String UUID_3 = "uuid3";
-    private static final Resume RESUME_3 = getFilledResume(UUID_3,"Sidorov");
-
+    private static final Resume RESUME_3 = getFilledResume(UUID_3, "Sidorov");
     private static final String UUID_4 = "extra_uuid";
-    private static final Resume RESUME_4 = getFilledResume(UUID_4,"Kuznetcov");
-
+    private static final Resume RESUME_4 = getFilledResume(UUID_4, "Kuznetcov");
     private static final String UUID_NOT_EXIST = "NON_EXISTENT_UUID";
-    private static final Resume RESUME_5 = getFilledResume(UUID_NOT_EXIST,"Gzhegosh");
+    private static final Resume RESUME_5 = getFilledResume(UUID_NOT_EXIST, "Gzhegosh");
+    protected Storage storage;
+    protected Storage emptyStorage;
 
-    protected AbstractStorageTest(Storage storage,  Storage emptyStorage) {
+    protected AbstractStorageTest(Storage storage, Storage emptyStorage) {
         this.storage = storage;
         this.emptyStorage = emptyStorage;
     }
@@ -55,7 +51,6 @@ public abstract class AbstractStorageTest {
         Assertions.assertEquals(size, storage.size());
     }
 
-
     @Test
     void size() {
         assertSize(3);
@@ -70,9 +65,9 @@ public abstract class AbstractStorageTest {
 
     @Test
     void update() {
-        Resume newResume = new Resume(UUID_1,"Ivanov");
+        Resume newResume = new Resume(UUID_1, "Ivanov");
         storage.update(newResume);
-        Assertions.assertTrue(newResume.equals(storage.get(UUID_1)));
+        Assertions.assertEquals(newResume, storage.get(UUID_1));
     }
 
     @Test

@@ -1,4 +1,4 @@
-package com.learnjava.serializer;
+package com.learnjava.storage.serializer;
 
 import com.learnjava.model.Resume;
 

@@ -1,6 +1,6 @@
 package com.learnjava.storage;
 
-import com.learnjava.serializer.ObjectStreamSerializer;
+import com.learnjava.storage.serializer.ObjectStreamSerializer;
 
 public class FileStorageTest extends AbstractStorageTest {
 

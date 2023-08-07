@@ -2,7 +2,7 @@ package com.learnjava.storage;
 
 import com.learnjava.exception.StorageException;
 import com.learnjava.model.Resume;
-import com.learnjava.serializer.StreamSerializer;
+import com.learnjava.storage.serializer.StreamSerializer;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -10,9 +10,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class FileStorage extends AbstractStorage<File> {
-    private File directory;
-
-    private StreamSerializer streamSerializer;
+    private final File directory;
+    private final StreamSerializer streamSerializer;
 
     protected FileStorage(File directory, StreamSerializer streamSerializer) {
         Objects.requireNonNull(directory, "directory must not be null");
@@ -29,7 +28,7 @@ public class FileStorage extends AbstractStorage<File> {
 
     @Override
     public void clear() {
-        File[] files = directory.listFiles();
+        File[] files = doGetFiles();
         if (files != null) {
             for (File file : files) {
                 doDelete(file);
@@ -39,11 +38,7 @@ public class FileStorage extends AbstractStorage<File> {
 
     @Override
     public int size() {
-        String[] list = directory.list();
-        if (list == null) {
-            throw new StorageException("Directory read error");
-        }
-        return list.length;
+        return doGetFiles().length;
     }
 
     @Override
@@ -68,6 +63,7 @@ public class FileStorage extends AbstractStorage<File> {
     @Override
     protected void doSave(Resume r, File file) {
         try {
+            //noinspection ResultOfMethodCallIgnored
             file.createNewFile();
         } catch (IOException e) {
             throw new StorageException("Couldn't create file " + file.getAbsolutePath(), file.getName(), e);
@@ -93,14 +89,20 @@ public class FileStorage extends AbstractStorage<File> {
 
     @Override
     protected List<Resume> doCopyAll() {
-        File[] files = directory.listFiles();
-        if (files == null) {
-            throw new StorageException("Directory read error");
-        }
+        File[] files = doGetFiles();
         List<Resume> list = new ArrayList<>(files.length);
         for (File file : files) {
             list.add(doGet(file));
         }
         return list;
+    }
+
+    protected File[] doGetFiles() {
+        File[] files = directory.listFiles();
+        if (files == null) {
+            throw new StorageException("Directory read error");
+        } else {
+            return files;
+        }
     }
 }

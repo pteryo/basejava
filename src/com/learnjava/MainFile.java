@@ -16,7 +16,7 @@ public class MainFile {
             throw new RuntimeException("Error", e);
         }
 
-        File dir = new File("./src/com/learnjava");
+        File dir = new File("./src");
         System.out.println(dir.isDirectory());
         String[] list = dir.list();
         if (list != null) {
@@ -42,12 +42,12 @@ public class MainFile {
         if (files != null) {
             for (File file : files) {
                 if (file.isFile()) {
-                    System.out.println("File: " + new String(spaces) + file.getName());
+                    System.out.println("File:    " + new String(spaces) + file.getName());
                 }
             }
             for (File file : files) {
                 if (file.isDirectory()) {
-                    System.out.println("Dir:    " + new String(spaces) + file.getName());
+                    System.out.println("Dir:  " + new String(spaces) + file.getName());
                     printDirectoryDeeply(file, nextDeep);
                 }
             }

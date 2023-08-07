@@ -2,7 +2,7 @@ package com.learnjava.storage;
 
 import com.learnjava.exception.StorageException;
 import com.learnjava.model.Resume;
-import com.learnjava.serializer.StreamSerializer;
+import com.learnjava.storage.serializer.StreamSerializer;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
