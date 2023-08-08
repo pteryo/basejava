@@ -42,7 +42,7 @@ public class MainFile {
         if (files != null) {
             for (File file : files) {
                 if (file.isFile()) {
-                    System.out.println("File: " + new String(spaces) + file.getName());
+                    System.out.println("File:    " + new String(spaces) + file.getName());
                 }
             }
             for (File file : files) {
