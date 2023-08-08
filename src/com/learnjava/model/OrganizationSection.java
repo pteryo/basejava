@@ -1,18 +1,19 @@
 package com.learnjava.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import java.util.List;
 import java.util.Objects;
-
+@XmlAccessorType(XmlAccessType.FIELD)
 public class OrganizationSection extends Section {
-    private final List<Organization> organizations;
+    private List<Organization> organizations;
 
     public OrganizationSection(List<Organization> organizations) {
         Objects.requireNonNull(organizations, "Experiences must not be null");
         this.organizations = organizations;
     }
-
-    public List<Organization> getExperiences() {
-        return organizations;
+    @SuppressWarnings("unused")
+    public OrganizationSection() {
     }
 
     @Override
@@ -35,4 +36,9 @@ public class OrganizationSection extends Section {
     public String toString() {
         return organizations.toString();
     }
+
+    public List<Organization> getOrganizations() {
+        return organizations;
+    }
+
 }

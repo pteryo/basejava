@@ -15,7 +15,7 @@ import static com.learnjava.ResumeTestData.getFilledResume;
 public abstract class AbstractStorageTest {
     protected static final File STORAGE_DIR = new File("D:\\YandexDisk\\_java_learn\\storage_files\\full");
     protected static final File STORAGE_DIR_EMPTY = new File("D:\\YandexDisk\\_java_learn\\storage_files\\empty");
-    private static final String UUID_1 = "uuid1";
+    private static final String UUID_1 = "uuid 1";
     private static final Resume RESUME_1 = getFilledResume(UUID_1, "Ivanov");
     private static final String UUID_2 = "uuid2";
     private static final Resume RESUME_2 = getFilledResume(UUID_2, "Petrov");

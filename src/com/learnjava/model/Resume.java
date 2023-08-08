@@ -1,5 +1,10 @@
 package com.learnjava.model;
 
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.Map;
@@ -9,22 +14,40 @@ import java.util.UUID;
 /**
  * ru.javawebinar.basejava.model.Resume class
  */
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Resume implements Comparable<Resume>, Serializable {
-
+    @Serial
+    private static final long serialVersionUID = 1L;
     // Unique identifier
-    private final String uuid;
-    private final String fullName;
+    private String uuid;
+    private String fullName;
 
-    private final Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
-    private final Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
+    @SuppressWarnings("FieldMayBeFinal")
+    private Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+    @SuppressWarnings("FieldMayBeFinal")
+    private Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
     }
 
+    public Resume() {
+
+    }
+
     public Resume(String uuid, String fullName) {
         this.uuid = uuid;
         this.fullName = fullName;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public Map<ContactType, String> getContacts() {
+        return contacts;
     }
 
     public String getContact(ContactType type) {
@@ -33,6 +56,10 @@ public class Resume implements Comparable<Resume>, Serializable {
 
     public Section getSection(SectionType type) {
         return sections.get(type);
+    }
+
+    public Map<SectionType, Section> getSections() {
+        return sections;
     }
 
     public void addContact(ContactType type, String value) {

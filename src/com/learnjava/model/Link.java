@@ -4,10 +4,13 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Link implements Serializable {
-    private final String name;
-    private final String url;
+    private  String name;
+    private String url;
 
+    @SuppressWarnings("unused")
+    public Link() {
 
+    }
     public Link(String name, String url) {
         this.name = name;
         this.url = url;

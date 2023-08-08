@@ -1,10 +1,16 @@
 package com.learnjava.model;
 
 public class TextSection extends Section {
-    private final String content;
+    private  String content;
 
     public TextSection(String content) {
         this.content = content;
+    }
+    @SuppressWarnings("unused")
+    public TextSection() {
+    }
+    public String getContent() {
+        return content;
     }
 
     @Override

@@ -1,12 +1,19 @@
 package com.learnjava.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Organization implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private List<Period> periods;
-    private final String Organization;
-    private final Link homePage;
+    private String Organization;
+    private Link homePage;
 
     public Organization(String name, String url, List<Period> periods) {
         Organization = name;
@@ -14,10 +21,14 @@ public class Organization implements Serializable {
         this.periods = periods;
     }
 
+    @SuppressWarnings("unused")
+    public Organization() {
+    }
+    @SuppressWarnings("unused")
     public List<Period> getPeriods() {
         return periods;
     }
-
+    @SuppressWarnings("unused")
     public void setPreiods(List<Period> periods) {
         this.periods = periods;
     }
@@ -44,6 +55,7 @@ public class Organization implements Serializable {
     @Override
     public String toString() {
         String periodText = "\n Organization{" + Organization + ", homePage=" + homePage;
+        //noinspection ResultOfMethodCallIgnored
         periods.forEach(period -> periodText.concat(
                 ", startDate=" + period.startDate +
                         ", endDate=" + period.endDate +
@@ -53,5 +65,13 @@ public class Organization implements Serializable {
         );
 
         return periodText;
+    }
+
+    public Link getHomePage() {
+        return homePage;
+    }
+
+    public List<Period> getPositions() {
+        return periods;
     }
 }

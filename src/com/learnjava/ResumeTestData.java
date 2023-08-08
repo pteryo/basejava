@@ -37,7 +37,8 @@ public class ResumeTestData {
         resumeWData.addContact(HOME_PAGE, "gkislin.ru/");
         resumeWData.addSection(OBJECTIVE, new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям "));
         resumeWData.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("Достижение1", "Достижение2", "Достижение3")));
-        resumeWData.addSection(SectionType.EXPERIENCE, new OrganizationSection(Arrays.asList(new Organization("Java Online Projects", "https://javaops.ru/", Arrays.asList(new Period(LocalDate.of(2013, 10, 1), LocalDate.now(), "Автор проекта.", "Создание, организация и проведение Java онлайн проектов и стажировок."))), new Organization("Wrike", "https://www.wrike.com/aa/", Arrays.asList(new Period(LocalDate.of(2014, 10, 1), LocalDate.of(2016, 1, 1), "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."))))));
+        resumeWData.addSection(SectionType.EXPERIENCE, new OrganizationSection(Arrays.asList(
+                new Organization("Java Online Projects", "https://javaops.ru/", Arrays.asList(new Period(LocalDate.of(2013, 10, 1), LocalDate.now(), "Автор проекта.", "Создание, организация и проведение Java онлайн проектов и стажировок."))), new Organization("Wrike", "https://www.wrike.com/aa/", Arrays.asList(new Period(LocalDate.of(2014, 10, 1), LocalDate.of(2016, 1, 1), "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."))))));
         return resumeWData;
     }
 
