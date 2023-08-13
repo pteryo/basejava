@@ -19,11 +19,7 @@ public class HomeWork12Exercise {
         Map<Boolean, List<Integer>> map = integers.stream()
                 .collect(Collectors.partitioningBy(num -> num % 2 == 0));
         List<List<Integer>> oddEven = new ArrayList<>(map.values());
-        if (oddEven.get(0).size() % 2 == 0) {
-            return oddEven.get(1);
-        } else {
-            return oddEven.get(0);
-        }
+       return (oddEven.get(0).size() % 2 == 0) ? oddEven.get(1): oddEven.get(0) ;
     }
 
     public static void main(String[] args) {
