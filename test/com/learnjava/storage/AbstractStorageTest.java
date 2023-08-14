@@ -1,5 +1,6 @@
 package com.learnjava.storage;
 
+import com.learnjava.Config;
 import com.learnjava.exception.NotExistStorageException;
 import com.learnjava.model.Resume;
 import org.junit.jupiter.api.Assertions;
@@ -13,8 +14,8 @@ import java.util.List;
 import static com.learnjava.ResumeTestData.getFilledResume;
 
 public abstract class AbstractStorageTest {
-    protected static final File STORAGE_DIR = new File("D:\\YandexDisk\\_java_learn\\storage_files\\full");
-    protected static final File STORAGE_DIR_EMPTY = new File("D:\\YandexDisk\\_java_learn\\storage_files\\empty");
+    protected static final File STORAGE_DIR = Config.get().getStorageDir();
+    protected static final File STORAGE_DIR_EMPTY = Config.get().getStorageDirEmpty();
     private static final String UUID_1 = "uuid 1";
     private static final Resume RESUME_1 = getFilledResume(UUID_1, "Ivanov");
     private static final String UUID_2 = "uuid2";
@@ -31,6 +32,10 @@ public abstract class AbstractStorageTest {
     protected AbstractStorageTest(Storage storage, Storage emptyStorage) {
         this.storage = storage;
         this.emptyStorage = emptyStorage;
+    }
+
+    protected AbstractStorageTest(Storage storage) {
+        this.storage = storage;
     }
 
     @BeforeEach
@@ -60,7 +65,6 @@ public abstract class AbstractStorageTest {
     void clear() {
         storage.clear();
         assertSize(0);
-        Assertions.assertArrayEquals(storage.getAllSorted().toArray(), emptyStorage.getAllSorted().toArray());
     }
 
     @Test
