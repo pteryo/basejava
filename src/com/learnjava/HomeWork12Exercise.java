@@ -1,6 +1,5 @@
 package com.learnjava;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -18,8 +17,7 @@ public class HomeWork12Exercise {
 
         Map<Boolean, List<Integer>> map = integers.stream()
                 .collect(Collectors.partitioningBy(num -> num % 2 == 0));
-        List<List<Integer>> oddEven = new ArrayList<>(map.values());
-       return (oddEven.get(0).size() % 2 == 0) ? oddEven.get(1): oddEven.get(0) ;
+       return map.get(false).size() % 2 == 0 ? map.get(true) : map.get(false);
     }
 
     public static void main(String[] args) {
