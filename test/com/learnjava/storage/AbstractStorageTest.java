@@ -8,24 +8,25 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static com.learnjava.ResumeTestData.getFilledResume;
 
 public abstract class AbstractStorageTest {
     protected static final File STORAGE_DIR = Config.get().getStorageDir();
     protected static final File STORAGE_DIR_EMPTY = Config.get().getStorageDirEmpty();
-    private static final String UUID_1 = "uuid 1";
+    private static final List<String> sortedUuidList = generateSortedUuid(5);
+    private static final String UUID_1 = readSortedUuidList(0);
     private static final Resume RESUME_1 = getFilledResume(UUID_1, "Ivanov");
-    private static final String UUID_2 = "uuid2";
+    private static final String UUID_2 = readSortedUuidList(1);
     private static final Resume RESUME_2 = getFilledResume(UUID_2, "Petrov");
-    private static final String UUID_3 = "uuid3";
+    private static final String UUID_3 = readSortedUuidList(2);
     private static final Resume RESUME_3 = getFilledResume(UUID_3, "Sidorov");
-    private static final String UUID_4 = "extra_uuid";
+    private static final String UUID_4 = readSortedUuidList(3);
     private static final Resume RESUME_4 = getFilledResume(UUID_4, "Kuznetcov");
-    private static final String UUID_NOT_EXIST = "NON_EXISTENT_UUID";
+    private static final String UUID_NOT_EXIST = readSortedUuidList(4);
     private static final Resume RESUME_5 = getFilledResume(UUID_NOT_EXIST, "Gzhegosh");
+
     protected Storage storage;
     protected Storage emptyStorage;
 
@@ -36,6 +37,19 @@ public abstract class AbstractStorageTest {
 
     protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
+    }
+
+    private static List<String> generateSortedUuid(int quan) {
+        List<String> sortedList = new ArrayList<>();
+        for (int i = 0; i < quan; i++) {
+            sortedList.add(UUID.randomUUID().toString());
+        }
+        Collections.sort(sortedList);
+        return sortedList;
+    }
+
+    private static String readSortedUuidList(int index) {
+        return sortedUuidList.get(index);
     }
 
     @BeforeEach
@@ -116,4 +130,5 @@ public abstract class AbstractStorageTest {
     public void updateNotExist() {
         Assertions.assertThrows(NotExistStorageException.class, () -> storage.update(RESUME_5));
     }
+
 }
