@@ -5,6 +5,7 @@ import com.learnjava.util.JsonParser;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+
 public class JsonStreamSerializer implements StreamSerializer {
 
     @Override

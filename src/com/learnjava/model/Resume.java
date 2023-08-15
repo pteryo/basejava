@@ -99,4 +99,17 @@ public class Resume implements Comparable<Resume>, Serializable {
         int compareFullName = fullName.compareTo(o.fullName);
         return compareFullName == 0 ? uuid.compareTo(o.uuid) : compareFullName;
     }
+
+
+
+
+
+
+    public void setContact(ContactType type, String value) {
+        contacts.put(type, value);
+    }
+
+    public void setSection(SectionType type, Section section) {
+        sections.put(type, section);
+    }
 }
