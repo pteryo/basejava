@@ -19,7 +19,7 @@ public class Period implements Serializable {
 
     public String title;
     public String description;
-
+    public static final Period EMPTY = new Period();
     public Period(LocalDate startDate, LocalDate endDate, String title, String description) {
         this.startDate = startDate;
         this.endDate = endDate;

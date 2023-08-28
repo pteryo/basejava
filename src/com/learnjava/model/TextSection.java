@@ -1,6 +1,7 @@
 package com.learnjava.model;
 
 public class TextSection extends Section {
+    public static final TextSection EMPTY = new TextSection("");
     private  String content;
 
     public TextSection(String content) {
@@ -33,4 +34,5 @@ public class TextSection extends Section {
     public int hashCode() {
         return content.hashCode();
     }
+
 }
