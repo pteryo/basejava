@@ -1,4 +1,4 @@
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.learnjava.model.ListSection" %>
 <%@ page import="com.learnjava.model.TextSection" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
