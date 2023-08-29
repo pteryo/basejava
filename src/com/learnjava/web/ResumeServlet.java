@@ -46,10 +46,8 @@ public class ResumeServlet extends HttpServlet {
                 }
             }
             for (SectionType type : SectionType.values()) {
-                String value = request.getParameter(type.name());
-                if (value != null) {
-                    value = value.replaceAll("(?m)^\\s*\\r?\\n|\\r?\\n\\s*(?!.*\\r?\\n)", "");
-                }
+
+                String value = removeEmptyLines(request.getParameter(type.name()));
                 String[] values = request.getParameterValues(type.name());
                 if ((values == null) || (HtmlUtil.isEmpty(value) && (values.length < 2))) {
                     r.getSections().remove(type);
@@ -67,7 +65,7 @@ public class ResumeServlet extends HttpServlet {
                 storage.update(r);
             }
         }
-            response.sendRedirect("resume");
+        response.sendRedirect("resume");
 
     }
 
@@ -117,5 +115,13 @@ public class ResumeServlet extends HttpServlet {
         }
         request.setAttribute("resume", r);
         request.getRequestDispatcher(("view".equals(action) ? "/WEB-INF/jsp/view.jsp" : "/WEB-INF/jsp/edit.jsp")).forward(request, response);
+    }
+
+    protected String removeEmptyLines(String input) {
+        if (input == null) {
+            return null;
+        } else {
+            return input.replaceAll("(?m)^\\s*$[\n\r]{1,}", "");
+        }
     }
 }

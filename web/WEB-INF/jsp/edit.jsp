@@ -44,7 +44,7 @@
                         <textarea name='${type}' cols=75 rows=5><%=sectionEntry.getValue().toString()%></textarea>
                     </c:when>
                     <c:when test="${type=='QUALIFICATIONS' || type=='ACHIEVEMENT'}">
-                        <textarea name='${type}' cols=75 rows=5><%=String.join("-", ((ListSection) sectionEntry.getValue()).getItems())%></textarea>
+                        <textarea name='${type}' cols=75 rows=5><%=String.join("\n", ((ListSection) sectionEntry.getValue()).getItems())%></textarea>
                     </c:when>
                 </c:choose>
             </c:forEach>
