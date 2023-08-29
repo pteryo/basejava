@@ -28,7 +28,7 @@ public class ResumeServlet extends HttpServlet {
         String uuid = request.getParameter("uuid");
         String fullName = request.getParameter("fullName");
 
-        final boolean isCreate = (uuid == null || uuid.length() == 0);
+        final boolean isCreate = (uuid == null || uuid.isEmpty());
         Resume r;
         if (isCreate) {
             r = new Resume(fullName);
@@ -36,34 +36,39 @@ public class ResumeServlet extends HttpServlet {
             r = storage.get(uuid);
             r.setFullName(fullName);
         }
-
-        for (ContactType type : ContactType.values()) {
-            String value = request.getParameter(type.name());
-            if (HtmlUtil.isEmpty(value)) {
-                r.getContacts().remove(type);
-            } else {
-                r.setContact(type, value);
-            }
-        }
-        for (SectionType type : SectionType.values()) {
-            String value = request.getParameter(type.name());
-            String[] values = request.getParameterValues(type.name());
-            if (value == null || (HtmlUtil.isEmpty(value) && values.length < 2)){
-                r.getSections().remove(type);
-            } else {
-                switch (type) {
-                    case OBJECTIVE, PERSONAL -> r.setSection(type, new TextSection(value));
-                    case ACHIEVEMENT, QUALIFICATIONS ->
-                            r.setSection(type, new ListSection(List.of(value.split("\\n"))));
+        if (!r.getFullName().isEmpty()) {
+            for (ContactType type : ContactType.values()) {
+                String value = request.getParameter(type.name());
+                if (HtmlUtil.isEmpty(value)) {
+                    r.getContacts().remove(type);
+                } else {
+                    r.setContact(type, value);
                 }
             }
+            for (SectionType type : SectionType.values()) {
+                String value = request.getParameter(type.name());
+                if (value != null) {
+                    value = value.replaceAll("(?m)^\\s*\\r?\\n|\\r?\\n\\s*(?!.*\\r?\\n)", "");
+                }
+                String[] values = request.getParameterValues(type.name());
+                if ((values == null) || (HtmlUtil.isEmpty(value) && (values.length < 2))) {
+                    r.getSections().remove(type);
+                } else {
+                    switch (type) {
+                        case OBJECTIVE, PERSONAL -> r.setSection(type, new TextSection(value));
+                        case ACHIEVEMENT, QUALIFICATIONS ->
+                                r.setSection(type, new ListSection(List.of(value.split("\\n"))));
+                    }
+                }
+            }
+            if (isCreate) {
+                storage.save(r);
+            } else {
+                storage.update(r);
+            }
         }
-        if (isCreate) {
-            storage.save(r);
-        } else {
-            storage.update(r);
-        }
-        response.sendRedirect("resume");
+            response.sendRedirect("resume");
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws javax.servlet.ServletException, IOException {
@@ -111,8 +116,6 @@ public class ResumeServlet extends HttpServlet {
                 throw new IllegalArgumentException("Action " + action + " is illegal");
         }
         request.setAttribute("resume", r);
-        request.getRequestDispatcher(
-                ("view".equals(action) ? "/WEB-INF/jsp/view.jsp" : "/WEB-INF/jsp/edit.jsp")
-        ).forward(request, response);
+        request.getRequestDispatcher(("view".equals(action) ? "/WEB-INF/jsp/view.jsp" : "/WEB-INF/jsp/edit.jsp")).forward(request, response);
     }
 }
