@@ -3,6 +3,7 @@ package com.learnjava.web;
 import com.learnjava.Config;
 import com.learnjava.model.*;
 import com.learnjava.storage.Storage;
+import com.learnjava.util.DateUtil;
 import com.learnjava.util.HtmlUtil;
 
 import javax.servlet.ServletConfig;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ResumeServlet extends HttpServlet {
@@ -56,6 +58,29 @@ public class ResumeServlet extends HttpServlet {
                         case OBJECTIVE, PERSONAL -> r.setSection(type, new TextSection(value));
                         case ACHIEVEMENT, QUALIFICATIONS ->
                                 r.setSection(type, new ListSection(List.of(value.split("\\n"))));
+                        case EDUCATION , EXPERIENCE -> {
+                            List<Organization> orgs = new ArrayList<>();
+                            String[] urls = request.getParameterValues(type.name() + "url");
+                            for (int i = 0; i < values.length; i++) {
+                                String name = values[i];
+                                if (!HtmlUtil.isEmpty(name)) {
+                                    List<Period> Periods = new ArrayList<>();
+                                    String pfx = type.name() + i;
+                                    String[] startDates = request.getParameterValues(pfx + "startDate");
+                                    String[] endDates = request.getParameterValues(pfx + "endDate");
+                                    String[] titles = request.getParameterValues(pfx + "title");
+                                    String[] descriptions = request.getParameterValues(pfx + "description");
+                                    for (int j = 0; j < titles.length; j++) {
+                                        if (!HtmlUtil.isEmpty(titles[j])) {
+                                            Periods.add(new Period(DateUtil.parse(startDates[j]), DateUtil.parse(endDates[j]), titles[j], descriptions[j]));
+                                        }
+                                    }
+                                    orgs.add(new Organization(name, urls[i], Periods));
+                                }
+                            }
+                            r.setSection(type, new OrganizationSection(orgs));
+                        }
+
                     }
                 }
             }
