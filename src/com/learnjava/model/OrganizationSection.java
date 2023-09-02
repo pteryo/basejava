@@ -2,6 +2,7 @@ package com.learnjava.model;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -12,6 +13,12 @@ public class OrganizationSection extends Section {
         Objects.requireNonNull(organizations, "Experiences must not be null");
         this.organizations = organizations;
     }
+    public OrganizationSection(Organization organization) {
+        Objects.requireNonNull(organization, "Experiences must not be null");
+        //noinspection ArraysAsListWithZeroOrOneArgument
+        this.organizations = Arrays.asList(organization);
+    }
+
     @SuppressWarnings("unused")
     public OrganizationSection() {
     }

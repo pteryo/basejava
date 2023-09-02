@@ -58,7 +58,7 @@ public class ResumeServlet extends HttpServlet {
                         case OBJECTIVE, PERSONAL -> r.setSection(type, new TextSection(value));
                         case ACHIEVEMENT, QUALIFICATIONS ->
                                 r.setSection(type, new ListSection(List.of(value.split("\\n"))));
-                        case EDUCATION , EXPERIENCE -> {
+                        case EDUCATION, EXPERIENCE -> {
                             List<Organization> orgs = new ArrayList<>();
                             String[] urls = request.getParameterValues(type.name() + "url");
                             for (int i = 0; i < values.length; i++) {
@@ -129,6 +129,14 @@ public class ResumeServlet extends HttpServlet {
                         case QUALIFICATIONS:
                             if (section == null) {
                                 section = ListSection.EMPTY;
+                            }
+                            break;
+                        case EXPERIENCE:
+                        case EDUCATION:
+                            if (section == null) {
+                                section = new OrganizationSection( Organization.EMPTY );
+                            } else {
+                                ((OrganizationSection) section).getOrganizations().add(Organization.EMPTY);
                             }
                             break;
                     }

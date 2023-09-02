@@ -16,7 +16,7 @@ public class DateUtil {
 
     public static String format(LocalDate date) {
         if (date == null) return "";
-        return date.equals(NOW) ? "Сейчас" : date.format(DATE_FORMATTER);
+        return date.isAfter(LocalDate.now()) || date.isEqual(LocalDate.now())  ? "Сейчас" : date.format(DATE_FORMATTER);
     }
 
     public static LocalDate parse(String date) {
